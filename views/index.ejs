@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>sockets</title>
+    <script src="js/angular.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script src="lib/angular-socket-io/socket.js"></script>
+	
+</head>
+<body ng-app="danerapp" ng-controller="daner" >
+	<h1>estamos aqui</h1>
+	<input type="text" ng-model="ms">
+	<div ng-repeat="d in data">
+		<p>{{d}}</p>
+	</div>
+	<div>
+
+
+	</div>
+{{date | date:'yyyy-MM-dd'}}
+
+<button ng-click="emitir()">emitir</button>
+
+<form action=""></form>
+
+	<script >
+	angular.module('danerapp',['btford.socket-io'])
+	.factory('sk', function (socketFactory) {
+      var myIoSocket = io.connect('localhost:3000');
+
+        mySocket = socketFactory({
+        ioSocket: myIoSocket
+     });
+
+  return mySocket;
+})
+	.controller('daner',function($scope,sk,$http){
+		$scope.date= new Date();
+		$scope.m=function(){
+			$http.post('/API/egresado', $scope.egresado).then(function(response){
+				$scope.v= response.data;
+			})
+		}
+		$scope.data=[];
+		$scope.daner='practicanto';
+		$scope.emitir= function(){
+		sk.emit('d',$scope.ms);
+		$scope.ms="";
+	}
+sk.on('daner',function(s){
+	$scope.data.push(s);
+
+});
+	})
+
+	</script>
+
+</body>
+</html>
