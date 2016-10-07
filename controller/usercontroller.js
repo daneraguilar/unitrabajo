@@ -8,7 +8,7 @@ var mongoose= require('mongoose');
 
 module.exports={
    todos: function(req, res,next) {
-
+       
       // e =lsita de egresados   ev = lista de egresado con 
        //hoja de vda integrada
         egresados.find(function(err, e){
@@ -43,7 +43,7 @@ module.exports={
          
     },
     guardar : function(req,res,next){
-        
+         
         if(req.body._id){
         return res.json({message:"id no valido"});
          }
@@ -85,7 +85,7 @@ module.exports={
                        
         				}  
             if(!e){
-                return res.status(404).json({
+                return res.json({
                        message: 'Error no se encuent egresado .'
                        });
             }    
@@ -123,17 +123,19 @@ module.exports={
                        
         				} 
                  if(!e){
-            return res.status(404).json({messege:'egresado no encontrado'});
+            return res.json({message:'egresado no encontrado'});
            } 
         				e.email = req.body.email;
         				e.nombres = req.body.nombres;
         				e.apellidos = req.body.apellidos;
         				e.password = req.body.password;
+                e.telefono= req.body.telefono;
+                e.sexo = req.body.telefono;
         				e.save(function(err,m){
         					if(err){
         					 return res.status(500).json({
         					
-                              message: 'Error al modificar egresado.',err
+                  message: 'Error al modificar egresado.',err
                              });
         					}
         					return res.json(e);
@@ -183,13 +185,49 @@ module.exports={
                            });
                 		}
                      if(!idioma){
-            return res.status(404).json({messege:'usuario no encontrado'});
+
+            return res.json({message:'usuario no encontrado'});
            }
                 		return res.json(re);
         		
    	})
         		
    	})
+
+   },
+   auth: function(req,res,next){
+  console.log(req.body);
+     if(!req.body.email || !req.body.password ){
+      return res.status(500).json({message:"no valido"});
+     }
+     egresados.findOne({email:req.body.email,password:req.body.password},function(err,data){
+       if(err){
+   return res.status(500).json({message:'error al autenticar egresado'});
+               }
+                if(!data){
+
+                 
+               }
+
+                       
+     })   .populate([{
+          path:'idiomas',model:'idiomas'},
+          {path:'competencias',model:'competencias'},
+          {path:'estudios',model:'estudios'},
+          {path:'experiencias',model:'experiencias'}
+
+          ])
+        .exec(function(err,ev){
+                if(err) {
+                return res.status(500).json({
+                       message: 'Error no se encontro la cv.',err
+                       });
+                }
+              
+              
+
+             return res.json(ev);
+            })
 
    }
 

@@ -15,6 +15,10 @@ router.post('/egresadonew', function(req, res, next) {
  usersController.guardar(req,res);
 
 });
+router.post('/egresadoauth', function(req, res, next) {
+ usersController.auth(req,res,next);
+
+});
 router.get('/egresadoshow/:_id', function(req, res, next) {
  usersController.buscarID(req,res);
 
