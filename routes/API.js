@@ -1,95 +1,43 @@
 var express = require('express');
 var router = express.Router();
-var usersController= require('../controller/usercontroller');
-var experienciasController= require('../controller/experienciasController');
-var estudiosController= require('../controller/estudiosController');
-var idiomasController= require('../controller/idiomasController');
-var competenciasController= require('../controller/competenciasController');
+var usersController = require('../controller/usercontroller');
+var experienciasController = require('../controller/experienciasController');
+var estudiosController = require('../controller/estudiosController');
+var idiomasController = require('../controller/idiomasController');
+var competenciasController = require('../controller/competenciasController');
 
 /* GET users listing. */
 // user controller routers//////
-router.get('/egresadoshow', function(req, res, next) {
- usersController.todos(req,res);
-});
-router.post('/egresadonew', function(req, res, next) {
- usersController.guardar(req,res);
-
-});
-router.post('/egresadoauth', function(req, res, next) {
- usersController.auth(req,res,next);
-
-});
-router.get('/egresadoshow/:_id', function(req, res, next) {
- usersController.buscarID(req,res);
-
-});
-router.put('/egresadoupdate/:_id', function(req, res, next) {
- usersController.modificar(req,res);
-
-});
-router.delete('/egresado/:_id', function(req, res, next) {
- usersController.eliminar(req,res);
+router.get('/egresadoshow', usersController.todos);
+router.post('/egresadonew', usersController.guardar);
+router.post('/egresadoauth', usersController.auth);
+router.get('/egresadoshow/:_id', usersController.buscarID);
+router.put('/egresadoupdate/:_id', usersController.modificar);
+router.delete('/egresado/:_id', usersController.eliminar);
 
 
 //***************experiencias*********************************//
- 
-});
-router.post('/experiencianew', function(req, res, next) {
- experienciasController.guardar(req,res);
 
-});
-router.put('/experienciaupdate/:_id', function(req, res, next) {
- experienciasController.modificar(req,res);
+router.post('/experiencianew', experienciasController.guardar);
+router.put('/experienciaupdate/:_id', experienciasController.modificar);
+router.post('/experienciadelete/:_id', experienciasController.eliminar); /////////////////////////////////////////////////////
 
-});
-router.delete('/experienciadelete/:_id', function(req, res, next) {
- experienciasController.eliminar(req,res);
-
-
- /////////////////////////////////////////////////////
-
-});
-router.post('/estudionew', function(req, res, next) {
-estudiosController.guardar(req,res);
-
-});
-router.put('/estudioupdate/:_id', function(req, res, next) {
- estudiosController.modificar(req,res);
-
-});
-router.delete('/estudiodelete/:_id', function(req, res, next) {
-estudiosController.eliminar(req,res);
-
-});
+/////////-------estudios//////////////////////////
+router.post('/estudionew', estudiosController.guardar);
+router.put('/estudioupdate/:_id', estudiosController.modificar);
+router.post('/estudiodelete/:_id', estudiosController.eliminar);
 
 ////****////////////idiomas/////--------------------
-router.post('/idiomanew', function(req, res, next) {
-idiomasController.guardar(req,res);
-
-});
-router.put('/idiomaupdate/:_id', function(req, res, next) {
-idiomasController.modificar(req,res);
-
-});
-router.delete('/idiomadelete/:_id', function(req, res, next) {
-idiomasController.eliminar(req,res);
+router.post('/idiomanew', idiomasController.guardar);
+router.put('/idiomaupdate/:_id', idiomasController.modificar);
+router.delete('/idiomadelete/:_id', idiomasController.eliminar);
 ///-------------------------------------/////--------------
 
 
 
 
 ///**************competencias *///////
-});
-router.post('/competencianew', function(req, res, next) {
-competenciasController.guardar(req,res);
-
-});
-router.put('/competenciaupdate/:_id', function(req, res, next) {
-competenciasController.modificar(req,res);
-
-});
-router.delete('/competenciadelete/:_id', function(req, res, next) {
-competenciasController.eliminar(req,res);
-
-});
+router.post('/competencianew', competenciasController.guardar);
+router.put('/competenciaupdate/:_id', competenciasController.modificar);
+router.delete('/competenciadelete/:_id', competenciasController.eliminar);
 module.exports = router;

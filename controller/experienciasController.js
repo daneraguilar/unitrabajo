@@ -3,7 +3,7 @@ var egresados = require('../models/egresados');
 var experiencias = require('../models/experiencias');
 var mongoose = require('mongoose');
 module.exports ={
-	guardar : function(req,res){
+	guardar : function(req,res,next){
      var id=req.body._idcv;
          if(req.body._id){
          return res.json({message:"id no valido"});
@@ -14,6 +14,7 @@ module.exports ={
 
     	var  experiencia= new experiencias(req.body); 
 	 egresados.findOne({_id:id},function(err,cv){
+
 		if(err) {
                  return res.status(500).json({
                     message: 'Error no se encuentra cv .',err
@@ -22,30 +23,53 @@ module.exports ={
           if(!cv){
             return res.status(404).json({message:'cv no encontrado'});
           }  
+
            //////////////////////////////////////
                 experiencia.save(function(err,e){
                 if(err) {
+                    
                  return res.status(500).json({
                     message: 'Error guaradando la experiencia laboral.', err
                  });
+
                         }
                         cv.experiencias.push(e._id);
                        cv.save();
-                       return res.json(cv);   
+                     
                           
                
                 })    
 
-	 })
+	 }).populate([{
+          path:'idiomas',model:'idiomas'},
+          {path:'competencias',model:'competencias'},
+          {path:'estudios',model:'estudios'},
+          {path:'experiencias',model:'experiencias'}
+
+          ])
+        .exec(function(err,ev){
+                if(err) {
+                return res.status(500).json({
+                       message: 'Error no se encontro la cv.',err
+                       });
+                }
+              
+              
+
+             return res.json(ev);
+            })
 
 	},
-	modificar: function(req,res){
+	modificar: function(req,res,next){
            if(!req.params._id){
            return res.json({message:"id no valido"});
           }
           var id =req.params._id;
          if(!mongoose.Types.ObjectId.isValid(id)){
          return res.json({message:"id no valido"});
+         }
+         if(!req.body._idcv){
+         return res.json({message:"idcv no valido"});
          }
         
          experiencias.findOne({_id:id},function(err,experiencia){
@@ -63,7 +87,7 @@ module.exports ={
      	       experiencia.inicio = req.body.inicio;
      	       experiencia.final = req.body.final;
      	       experiencia.actualmente = req.body.actualmente;
-     	       experiencia.ciudad = req.body.ciudad;
+     	       experiencia.departamento = req.body.departamento;
      	       experiencia.funcion = req.body.funcion;
      	       experiencia.save(function(err,ex){
      	       	if(err){
@@ -78,23 +102,28 @@ module.exports ={
  
 
 	},
-	eliminar: function(req,res){
-
+	eliminar: function(req,res,next){
+ 
         if(!req.params._id){
          return res.json({message:"id no valido"});
          }
+
              if(!req.body._idcv){
          return res.json({message:"idcv no valido"});
          }
+          
           var id =req.params._id;
           var idcv =req.body._idcv;
+         
+
+          
          if(!mongoose.Types.ObjectId.isValid(id)){
          return res.json({message:"id no valido"});
          }
           if(!mongoose.Types.ObjectId.isValid(idcv)){
          return res.json({message:"idcv no valido"});
          }
-
+console.log(idcv);
 
 		egresados.findOne({_id :idcv},function(err,cv){
 			if(err){
@@ -103,7 +132,7 @@ module.exports ={
                  });
      	   }
              if(!cv){
-            return res.status(404).json({message:'no se encontro cv'})
+            return res.json({message:'no se encontro cv'})
            }
      	  	experiencias.findByIdAndRemove(id,function(err,data){
 				if(err){
@@ -124,12 +153,13 @@ module.exports ={
                    message: 'Error actualizando  cv.', err
                  });
                        }
+                    return   res.json(data);
 
      	       	});
      	     
 
                }
-                  return res.json(cv.experiencias);
+                  
 
 		})
 

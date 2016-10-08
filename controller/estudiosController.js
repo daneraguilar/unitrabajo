@@ -15,6 +15,7 @@ module.exports ={
 
 	   var  estudio= new estudios(req.body); 
 	   egresados.findOne({_id:id},function(err,cv){
+
 		if(err) {
                  return res.status(500).json({
                     message: 'Error error buscado cv.'
@@ -26,7 +27,7 @@ module.exports ={
 
                 estudio.save(function(err,e){
                 if(err) {
-                 return res.status(500).json({
+                 return res.json({
                     message: 'Error error guaradando estudio.', err
                  });
                         }

@@ -7,7 +7,7 @@ var estudios = new Schema({
 	inicio :{type:Date , require:true},
 	final : {type:Date },
 	actualmente : {type:Boolean ,required:true},
-	ciudad : {type:String , required:true},
+	area: {type:String , required:true},
 	cv : {type:Schema.Types.ObjectId,ref:'cvs'}
 	
 });

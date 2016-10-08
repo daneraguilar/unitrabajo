@@ -130,7 +130,7 @@ module.exports={
         				e.apellidos = req.body.apellidos;
         				e.password = req.body.password;
                 e.telefono= req.body.telefono;
-                e.sexo = req.body.telefono;
+                e.sexo = req.body.sexo;
         				e.save(function(err,m){
         					if(err){
         					 return res.status(500).json({
