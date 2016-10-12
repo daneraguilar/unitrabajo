@@ -30,7 +30,7 @@ router.post('/estudiodelete/:_id', estudiosController.eliminar);
 ////****////////////idiomas/////--------------------
 router.post('/idiomanew', idiomasController.guardar);
 router.put('/idiomaupdate/:_id', idiomasController.modificar);
-router.delete('/idiomadelete/:_id', idiomasController.eliminar);
+router.post('/idiomadelete/:_id', idiomasController.eliminar);
 ///-------------------------------------/////--------------
 
 
@@ -39,5 +39,5 @@ router.delete('/idiomadelete/:_id', idiomasController.eliminar);
 ///**************competencias *///////
 router.post('/competencianew', competenciasController.guardar);
 router.put('/competenciaupdate/:_id', competenciasController.modificar);
-router.delete('/competenciadelete/:_id', competenciasController.eliminar);
+router.post('/competenciadelete/:_id', competenciasController.eliminar);
 module.exports = router;

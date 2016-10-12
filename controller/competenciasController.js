@@ -131,12 +131,12 @@ module.exports ={
                    message: 'Error save cv.', err
                  });
                        }
-                 
+                 return res.json(data);
                 });
      	       
 
                }
-                return res.json(data); 
+                 
                
                 
 

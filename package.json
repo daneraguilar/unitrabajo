@@ -1,13 +1,17 @@
 {
   "name": "unitrabajo",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "node ./bin/www"
+  },
+  "engine": {
+    "node": ">=4"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.1",
     "debug": "~2.2.0",
     "ejs": "~2.4.1",
     "express": "~4.13.4",
