@@ -10,8 +10,8 @@ var API = require('./routes/API');
 var misocket = require('./routes/misocket');
 var app = express();
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/unitrabajo');
-
+//mongoose.connect('mongodb://localhost/unitrabajo');
+mongoose.connect('mongodb://daner1:123456ares@jello.modulusmongo.net:27017/tAgo8nyr');
 require('./models/egresados');
 
 app.io = io();
