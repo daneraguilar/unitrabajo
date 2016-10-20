@@ -10,8 +10,8 @@ exports.connection= function(io){
        	io.emit('daner',data);
        });
        s.on('d',function(d){
-
-		io.emit('daner',d);
+       var data ={name:d,ap:"desde socket"};
+		io.emit('daner',data);
 	});
 	})
 

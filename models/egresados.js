@@ -8,11 +8,12 @@ var egresadosSchema = new Schema({
 	nombres :{ type: String, lowercase: true, required: true },
 	apellidos :{ type: String, lowercase: true, required: true },
 	sexo :{ type: String, lowercase: true, required: true },
-	telefono :{ type: String, lowercase: true, required: true },
+	telefono :{ type: Number, lowercase: true, required: true },
     experiencias :[{type: Schema.Types.ObjectId,ref:'experiencias'}],
 	estudios :[{type: Schema.Types.ObjectId,ref:'formaciones'}],
 	idiomas:[{type: Schema.Types.ObjectId,ref:'idiomas'}],
 	competencias:[{type: Schema.Types.ObjectId,ref:'competencias'}],
+	aplicaciones:[{type: Schema.Types.ObjectId,ref:'ofertas'}],
     createdAt: {type: Date, default: Date.now}
 
 

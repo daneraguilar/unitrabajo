@@ -163,18 +163,18 @@ module.exports={
                      if(!r){
             return res.status(404).json({messege:'cv no encontrado'});
            }
-              for(e in r.empresas){
+              
                 experiencias.findByIdAndRemove(e);
-              }
-                for(e in r.estudios){
+              
+               
                 estudios.findByIdAndRemove(e);
-              }
-                for(e in r.estudios){
+              
+                
                 idiomas.findByIdAndRemove(e);
-              }
-                for(e in r.estudios){
+             
+               
                 competencias.findByIdAndRemove(e);
-              }
+             
 
 
            	egresados.findByIdAndRemove(id,function(err,re){
@@ -196,7 +196,7 @@ module.exports={
 
    },
    auth: function(req,res,next){
-  console.log(req.body);
+
      if(!req.body.email || !req.body.password ){
       return res.status(500).json({message:"no valido"});
      }
