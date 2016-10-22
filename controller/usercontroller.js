@@ -163,18 +163,19 @@ module.exports={
                      if(!r){
             return res.status(404).json({messege:'cv no encontrado'});
            }
-              
+              for(e in r.experiencias){
                 experiencias.findByIdAndRemove(e);
-              
-               
+              }
+               for(e in r.estudios){
                 estudios.findByIdAndRemove(e);
-              
-                
+              }
+                for(e in r.competencias){
                 idiomas.findByIdAndRemove(e);
-             
+              }
+             for(e in r.idiomas){
                
                 competencias.findByIdAndRemove(e);
-             
+             }
 
 
            	egresados.findByIdAndRemove(id,function(err,re){
@@ -198,11 +199,11 @@ module.exports={
    auth: function(req,res,next){
 
      if(!req.body.email || !req.body.password ){
-      return res.status(500).json({message:"no valido"});
+      return res.status(500).json({message:"usuario no valido"});
      }
      egresados.findOne({email:req.body.email,password:req.body.password},function(err,data){
        if(err){
-   return res.status(500).json({message:'error al autenticar egresado'});
+   return res.json({message:'error al autenticar egresado'});
                }
                 if(!data){
 

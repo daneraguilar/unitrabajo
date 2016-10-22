@@ -95,6 +95,7 @@ module.exports ={
                     message: 'Error error modficando experiencia laboral.', err
                  });
      	       }
+             console.log("si");
      	       	return res.json(ex);
 
      	       })
