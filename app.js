@@ -12,14 +12,14 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/unitrabajo');
 //mongoose.connect('mongodb://daner1:123456ares@jello.modulusmongo.net:27017/tAgo8nyr');
-require('./models/egresados');
+
 
 app.io = io();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
+//uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'Logo upc.png')));
 app.use(logger('dev'));
 app.use(bodyParser.json());

@@ -262,7 +262,7 @@ module.exports = {
 
 
                 }
-return res.json(data);
+                return res.json(data);
 
             })
 
@@ -314,13 +314,13 @@ return res.json(data);
                             });
                         }
                         if (!egresado) {
-                        return res.json({ message: 'no se encontro egresado' })
+                            return res.json({ message: 'no se encontro egresado' })
                         }
                         var index = oferta.aplicados.indexOf(egresado._id);
-                    if (index > -1) {
-                      return res.json({ message: 'egresado ya se encuentra aplicado' })
-                      }
-                       
+                        if (index > -1) {
+                            return res.json({ message: 'egresado ya se encuentra aplicado' })
+                        }
+
                         oferta.aplicados.push(egresado._id);
                         egresado.aplicaciones.push(oferta._id);
                         oferta.save();
@@ -328,7 +328,7 @@ return res.json(data);
 
                         return res.json(oferta);
 
-                      //  next();
+                        //  next();
                     })
 
 
